@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[axios]]></title>
+    <url>%2F2019%2F04%2F17%2Faxios%2F</url>
+    <content type="text"><![CDATA[axios封装 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061request.jsimport _axios from &apos;axios&apos;;import qs from &apos;qs&apos;;//新建一个 axios 实例const axios = _axios.create(&#123; //当在开发模式下,baseURL等于null,使用本地的localhost,设置本地代理解决跨域 baseURL:process.env.NODE_ENV==&apos;development&apos;?null:&apos;http://xxx.xx.xx:8080/&apos;, transformRequest:[function(data)&#123; data = qs.stringify(data); return data &#125;], headers:&#123; &apos;Content-Type&apos;: &apos;application/x-www-form-urlencoded&apos; &#125;, transformResponse: [function (data) &#123; // 对 data 进行任意转换处理 let _data = JSON.parse(data); return _data; &#125;], withCredentials:true, // 表示跨域请求时是否需要使用凭证 timeout: 5000, // 如果请求话费了超过 `timeout` 的时间，请求将被中断&#125;)axios.defaults.withCredentials = true// 添加请求拦截器axios.interceptors.request.use( config =&gt; &#123; //在发送请求之前做些什么 // if (token) &#123; // config.headers[&apos;X-Token&apos;] = getToken() // &#125; return config &#125;, error =&gt; &#123; // 对请求错误做些什么 console.log(&apos;err&apos; + error) // for debug return Promise.reject(error) &#125;)// 添加响应拦截器axios.interceptors.response.use( response =&gt; &#123; //对响应数据做点什么 const res = response.data //如果自定义代码不是20000，则被判断为错误。统一处理接口报错 if (res.code !== 20000) &#123; return Promise.reject(res.message || &apos;error&apos;) &#125; else &#123; return response &#125; &#125;, error =&gt; &#123; //对响应错误做点什么 console.log(&apos;err&apos; + error) // for debug return Promise.reject(error) &#125;)export default axios; 12345678910111213141516//api.jsimport http from request.js//getexport const getGet = (&#123;id&#125;) =&gt; &#123; let params = &#123; ID &#125; return http.get(&apos;url&apos;,params)&#125;//postexport const getPost = (&#123;id&#125;) =&gt; &#123; let data = &#123; ID &#125; return http.post(&apos;url&apos;,data)&#125;]]></content>
+      <categories>
+        <category>vue</category>
+      </categories>
+      <tags>
+        <tag>vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[element上传图片el-upload]]></title>
+    <url>%2F2019%2F04%2F09%2Fele-upload%2F</url>
+    <content type="text"><![CDATA[element上传图片el-upload el-upload组件123456789&lt;el-upload action=&quot;&quot; list-type=&quot;picture-card&quot; :on-change=&quot;uploadChange&quot; :file-list=&quot;fileList&quot; :limit=&quot;5&quot; :auto-upload=&quot;false&quot;&gt; &lt;i class=&quot;el-icon-plus&quot;&gt;&lt;/i&gt;&lt;/el-upload&gt; list-type:文件上传类型，如照片墙、单个上传照片on-change:自定义上传图片file-list:照片墙的数据limit: 最大允许上传个数auto-upload:el-upload 会自动上传两次，false不自动上传 获取base6412345678uploadChange(file,fileList) &#123; var reader = new FileReader(); reader.readAsDataURL(file.raw); reader.onload = (e) =&gt;&#123; //reader.result获取base64 let imgStr = reader.result &#125; &#125;]]></content>
+      <categories>
+        <category>JavaScript</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[this]]></title>
+    <url>%2F2019%2F04%2F02%2F3-JS-this%2F</url>
+    <content type="text"><![CDATA[关于this this 既不指向函数自身也不指向函数的词法作用域。this 实际上是在函数被调用时发生的绑定，它指向什么完全取决于函数在哪里被调用。 this是什么当一个函数被调用时，会创建一个活动记录（有时候也称为执行上下文）。这个记录会包含函数在哪里被调用（调用栈）、函数的调用方法、传入的参数等信息。this 就是记录的其中一个属性，会在函数执行的过程中用到。 this绑定1.默认绑定12345function foo() &#123; console.log(this.a)&#125;var a = 2;foo() //2 调用foo()，this.a被解析成全局变量a。函数调用时应用了this的默认绑定,this指向全局对象。如何判断默认绑定？在代码中，foo() 是直接使用不带任何修饰的函数引用进行调用的，因此只能使用默认绑定，无法应用其他规则。严格模式下this是undefined。 2.隐式绑定123456789function foo() &#123; console.log(this)&#125;var obj = &#123; a: 2, foo:foo&#125;var a = 3;obj.foo() //2 foo()是被当作引用属性添加到 obj 中的。调用位置会使用obj上下文引用函数，foo()调用时指向obj对象，隐式规则会把函数调用中的this绑定到这个上下文对象 3.显式绑定12345678function foo() &#123; console.log( this.a ); &#125; var obj = &#123; a:2 &#125;; var a = 3;foo.call( obj ); // 2 通过 foo.call(..)，我们可以在调用 foo 时强制把它的 this 绑定到 obj 上。从 this 绑定的角度来说，call(..) 和 apply(..) 是一样的，它们的区别体现在其他的参数上。 4.new绑定使用 new 来调用函数，或者说发生构造函数调用时，会自动执行下面的操作。1.创建（或者说构造）一个全新的对象。2.这个新对象会被执行 [[ 原型 ]] 连接。3.这个新对象会绑定到函数调用的 this。4.如果函数没有返回其他对象，那么 new 表达式中的函数调用会自动返回这个新对象。 12345function foo(a) &#123; this.a = a; &#125; var bar = new foo(2); console.log( bar.a ); // 2 使用 new 来调用 foo(..) 时，我们会构造一个新对象并把它绑定到 foo(..) 调用中的 this上。new 是最后一种可以影响函数调用时 this 绑定行为的方法，我们称之为 new 绑定。 箭头函数 箭头函数根据外层（函数或者全局）作用域来决定 this。 123456789101112131415function foo() &#123; // 返回一个箭头函数 return (a) =&gt; &#123; //this 继承自foo() console.log( this.a ); &#125;; &#125; var obj1 = &#123; a:2 &#125;;var obj2 = &#123; a:3&#125;;var bar = foo.call(obj1)bar.call(obj2) //2 不是3 箭头函数会捕获调用时foo()到this,foo()的this绑定obj1，this也绑定到obj1。箭头函数的绑定无法被修改 判断this 函数是否在 new 中调用（new 绑定）？如果是的话 this 绑定的是新创建的对象。var bar = new foo() 函数是否通过 call、apply（显式绑定）或者硬绑定调用？如果是的话，this 绑定的是指定的对象。var bar = foo.call(obj2) 函数是否在某个上下文对象中调用（隐式绑定）？如果是的话，this 绑定的是那个上下文对象。var bar = obj1.foo() 如果都不是的话，使用默认绑定。如果在严格模式下，就绑定到 undefined，否则绑定到全局对象。var bar = foo()]]></content>
+      <categories>
+        <category>你不知道的JavaScript</category>
+      </categories>
+      <tags>
+        <tag>你不知道的JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[提升和作用域闭包]]></title>
+    <url>%2F2019%2F04%2F01%2F2-JS-tishenghebibao%2F</url>
+    <content type="text"><![CDATA[提升和作用域闭包 提升 这意味着无论作用域中的声明出现在什么地方，都将在代码本身被执行前首先进行处理。可以将这个过程形象地想象成所有的声明（变量和函数）都会被“移动”到各自作用域的最顶端，这个过程被称为提升。声明本身会被提升，而包括函数表达式的赋值在内的赋值操作并不会提升。要注意避免重复声明，特别是当普通的 var 声明和函数声明混合在一起的时候，否则会引起很多危险的问题！ 12345678a = 2;var a;console.log(a) //2------------------进行如下处理var a;a = 2;变量出现的位置被“移动”到了最上面，这个过程就叫做提升 变量和函数在内的所有声明都会在任何代码被执行前首先被处理。JavaScript实际会将其看两个声明：var a;和a = 2;第一个定义声明是在编译阶段进行，第二个赋值声明会被留在原地等待执行阶段。 12345678910111213foo()function foo() &#123; console.log(a) //undefined var a = 2;&#125;--------------进行如下处理function foo() &#123; var a; console.log(a) //undefined a = 2;&#125;foo() foo函数声明被提升了，但函数表达式却不会被提升。1234foo() //TypeErrorvar foo = function bar() &#123; //...&#125; 即使是具名函数表达式，名称标识符在赋值之前也无法在所在作用域中使用。 1234567891011121314151617foo() //1var foo;function foo() &#123; console.log(1)&#125;foo = function() &#123; console.log(2)&#125;-----------进行如下处理function foo() &#123; console.log(1)&#125;foo() //1foo = function() &#123; console.log(2)&#125; 函数声明和变量都会被提升，函数首先被提升，然后才是变量。后面的函数声明还可以覆盖前面的函数声明 12345678910111213foo() //3function foo() &#123; console.log(1)&#125;var foo = function() &#123; console.log(2)&#125;function foo() &#123; console.log(3)&#125; 作用域闭包 闭包就是能够读取其他函数内部变量的函数。由于在Javascript语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成”定义在一个函数内部的函数”。在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁。 123456789function foo() &#123; var a = 2; function bar() &#123; console.log(a) &#125; return bar&#125;var baz = bar();baz(); //2 函数baz()能够访问foo()的内部作用域。将bar()函数本身当作一个值类型进行传递。而闭包的“神奇”之处正是可以阻止这件事情的发生。事实上内部作用域依然存在，因此没有被回收。谁在使用这个内部作用域？原来是 bar() 本身在使用。bar()拥有foo()内部作用域的闭包，该作用域一直存活,bar()本身在使用。bar() 依然持有对该作用域的引用，而这个引用就叫作闭包。]]></content>
+      <categories>
+        <category>你不知道的JavaScript</category>
+      </categories>
+      <tags>
+        <tag>你不知道的JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[作用域]]></title>
+    <url>%2F2019%2F03%2F30%2F1-JS-zuoyongyu%2F</url>
+    <content type="text"><![CDATA[作用域 作用域是什么 作用域就是一套规则，用于确定在何处以及如何查找变量（标识符）。LHS查询：查找的目的是对变量进行赋值。RHS查询：目的是获取变量的值。嵌套作用域：引擎从当前执行作用域开始查找变量，如果没找到，就向上一级继续查找。当抵达最外层的全局作用域时，无论有没有找到，查找过程都会停止 JS编译原理例如：var a = 2; 任何JavaScript代码片段在执行前都要进行编译（通常就在执行前）。因此，JavaScript编译器。首先会对var a = 2;这段程序进行编译,然后做好执行它的准备，并且马上就会执行它。 一. JS编译· 引擎从头到尾负责整个JavaScript程序的编译及执行过程。· 编译器引擎的好朋友之一，负责语法分析及代码生成等脏活累活· 作用域引擎的另一位好朋友，负责收集并维护所有声明的标识符（变量）组成的一系列查询，并实施一套非常严格的规则，确定当前执行的代码对这些标识符的访问权限。 二.接下来 var a = 2的编译过程1.编译器询问作用域是否已经有有一个该名称的变量存在作用域集合中。如果是，编译器就会忽略该声明，继续进行编译。否则在该作用域的集合重声明一个新的变量，命名为a。 2.编译器为引擎生成运行所需的代码，用来处理a = 2的操作。首先询问作用域，当前有没有a的变量，有，引擎使用a的变量。没有则引擎继续查找该变量。如果最终找到a变量，把2赋值给a。没找到抛出异常! 词法作用域 词法作用域就是定义在词法阶段的作用域。换句话说，词法作用域是由你在写代码时将变量和块作用域写在哪里来决定的，因此当词法分析器处理代码时会保持作用域不变（大部分情况时这样的）。 123456789function foo(a) &#123; var b = a * 2; function bar(c) &#123; console.log(a,b,c) &#125; bar(b*3)&#125;foo(2) //2,4,12 1.整个全局作用句,有一个标识符：foo。2.foo所创建的作用域，有三个标识符：a,bar和b。3.bar所创建的作用域，有一个标识符：c。 无论函数在哪里被调用，它的词法作用域都只由函数被声明时所处都位置决定。词法作用域查找只会查找一级标识符，比如a,b,c。如果代码中引用来foo,bar,baz，词法作用域只会试图查找foo标识符,找到这个变量后，对象属性访问规则分别接管bar和baz属性都访问。 函数作用域函数作用域 函数作用域：属于这个函数的全部变量都可以在整个函数都范围内使用及复用（事实上在嵌套都作用域也可以使用）。这种数据方案非常有用，能充分利用JavaScript变量可以根据需要改变值类型都“动态”特效。 例如：123456789function doSomething(a) &#123; b = a + doSomethingElse(a*2) console.log(b*3)&#125;function doSomethingElse(a) &#123; return a - 1;&#125;var b;doSomething(2) //15 b和doSomethingElse应该是doSomething内部具体实现的“私有”内容。给予外部作用域对b和doSomethingElse对“访问权限”。导致他们可能被有意无意以非预期对方式使用。 123456789function doSomething(a) &#123; function doSomethingElse(a) &#123; return a - 1; &#125; var b ; b = a + doSomethingElse(a*2) console.log(b*3)&#125;doSomething(2) //15 b和doSomethingElse都无法从外部被访问，只能被doSomething控制，设计上将具体内容私有化。 函数声明和函数表达式 函数声明：如果function是声明中都第一个词，就是一个函数声明，否则是一个函数表达式。函数表达式：以(function…而不仅是以function…开始。)1.例如1234567var a = 2;function foo() &#123; var a = 3; console.log(a); //3&#125;foo()console.log(a); //2 具名函数foo()本身污染所在都作用域，并且必须显式通过foo()调用才能运行其中代码。如果函数不需要函数名自动运行？ 123456var a = 2;(functgion foo() &#123; var a = 3; console.log(a); //3&#125;)();console.log(a); //2 此foo函数被绑定在函数表达式自身都函数中而不是所在作用域中。意味foo只能在(function foo(){…})…被访问，外部作用域不行。foo被因此在自身意味不会非不要地污染外部作用域 2.匿名和具名123setTimeout(function() &#123;&#125;,1000) 匿名函数表达式：没有名称和标识符。函数表达式可以是匿名的，而函数声明则不可以省略函数名。]]></content>
+      <categories>
+        <category>你不知道的JavaScript</category>
+      </categories>
+      <tags>
+        <tag>你不知道的JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[对象的类型——接口]]></title>
+    <url>%2F2019%2F03%2F09%2F4-ts-interfaces%2F</url>
+    <content type="text"><![CDATA[对象的类型(interfacer) 什么是接口对行为的抽象，而具体如何行动需要由类去实现。TypeScript 中的接口是一个非常灵活的概念，除了可用于对类的一部分行为进行抽象以外，也常用于对「对象的形状（Shape）」进行描述。1234567891011//定义接口interface Person &#123; name:string; age: number;&#125;//定义一个变量，类型是Person。约束了 tom 的形状必须和接口 Person 一致。接口少了一些属性是不允许的，多一些属性也是不允许的。let tom:Person = &#123; name: &apos;Tom&apos;, age: 25&#125; 可选属性有时不需要匹配所有的属性，可以用可选属性。定义属性key后面加? 如key?12345678910//定义接口interface Person &#123; name:string; age？: number;&#125;//这时仍然不允许添加未定义的属性：let tom: Person = &#123; name: &apos;Tom&apos;&#125;; 任意属性1.使用 [propName: string] 定义了任意属性取 string 类型的值。2.一旦定义了任意属性，那么确定属性和可选属性的类型都必须是它的类型的子集，负责报错。 12345678910interface Person &#123; name: string; age?: number; [propName: string]: any;&#125;let tom: Person = &#123; name: &apos;Tom&apos;, gender: &apos;male&apos;&#125;; 123456789101112//报错interface Person &#123; name: string; age?: number; [propName: string]: string;&#125;let tom: Person = &#123; name: &apos;Tom&apos;, age: 25, gender: &apos;male&apos;&#125;; 因为可选属性age的值是number,number 不是 string 的子属性，所以报错了。 可读属性1.readonly 定义只读属性：2.注意，只读的约束存在于第一次给对象赋值的时候，而不是第一次给只读属性赋值的时候：123456789101112131415//报错interface Person &#123; readonly id: number; name: string; age?: number; [propName: string]: any;&#125;let tom: Person = &#123; id: 89757, name: &apos;Tom&apos;, gender: &apos;male&apos;&#125;;tom.id = 9527; 使用 readonly 定义的属性 id 初始化后，又被赋值了，所以报错了。 12345678910111213interface Person &#123; readonly id: number; name: string; age?: number; [propName: string]: any;&#125;let tom: Person = &#123; name: &apos;Tom&apos;, gender: &apos;male&apos;&#125;;tom.id = 89757; 报错如下： tom 进行赋值的时候，没有给 id 赋值。 tom.id 赋值的时候，由于它是只读属性]]></content>
+      <categories>
+        <category>TypeScript</category>
+      </categories>
+      <tags>
+        <tag>TypeScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[任意值Any]]></title>
+    <url>%2F2019%2F03%2F09%2F3-ts-any%2F</url>
+    <content type="text"><![CDATA[任意值Any 任意值Any任意值（Any）用来表示允许赋值为任意类型。1.如果是一个普通类型，在赋值过程中改变类型是不被允许的。2.如果是一个any类型,则允许被赋值为任意类型。12let myFavoriteNumber:any = &apos;seven&apos;;myFavoriteNumber = 7; 任意值的属性和方法 在任意值上访问任何属性都是允许的： 也允许调用任何方法：12345let anyThing: any = &apos;hello&apos;;console.log(anyThing.myName);let anyThing: any = &apos;Tom&apos;;anyThing.setName(&apos;Jerry&apos;); 未声明类型的变量变量如果在声明的时候，未指定其类型，那么它会被识别为任意值类型：12let something;something = &apos;seven&apos;;]]></content>
+      <categories>
+        <category>TypeScript</category>
+      </categories>
+      <tags>
+        <tag>TypeScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[原始数据类型]]></title>
+    <url>%2F2019%2F03%2F09%2F2-ts-primitive-data-type%2F</url>
+    <content type="text"><![CDATA[原始数据类型 原始数据类型1.JS的类型分为两种，原始数据类型和对象类型。2.原始数据类型分为五种，布尔值、数值、字符串、null、undefind、以及ES6中的新类型Symbol。 TypeScript使用原始类型1.布尔值1234let isDone: boolean = false;// 编译通过// 后面约定，未强调编译错误的代码片段，默认为编译通过 2.数值1let decLiteral: number = 6; 3.字符串1let myName:string = &apos;Tom&apos;; 4.空值JavaScript 没有空值（Void）的概念，在 TypeScript 中，可以用 void 表示没有任何返回值的函数：123function alertName(): void &#123; alert(&apos;My name is Tom&apos;)&#125; 声明一个 void 类型的变量没有什么用，因为你只能将它赋值为 undefined 和 null：1let unusable: void = undefined; 5.Null 和 Undefined在 TypeScript 中，可以使用 null 和 undefined 来定义这两个原始数据类型：12let u: undefined = undefined;let n: null = null; undefined 类型的变量只能被赋值为 undefined，null 类型的变量只能被赋值为 null。与 void 的区别是，undefined 和 null 是所有类型的子类型。也就是说 undefined 类型的变量，可以赋值给 number 类型的变量：1234// 这样不会报错let num: number = undefined; let u: undefined;let num: number = u; 而 void 类型的变量不能赋值给 number 类型的变量：1234let u: void;let num: number = u;// index.ts(2,5): error TS2322: Type &apos;void&apos; is not assignable to type &apos;number&apos;.]]></content>
+      <categories>
+        <category>TypeScript</category>
+      </categories>
+      <tags>
+        <tag>TypeScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[TypeScript]]></title>
+    <url>%2F2019%2F03%2F09%2F1-ts%2F</url>
+    <content type="text"><![CDATA[TypeScript TypeScipt介绍 TypeScript 是 JavaScript 的类型的超集，它可以编译成纯 JavaScript。编译出来的 JavaScript 可以运行在任何浏览器上。TypeScript 编译工具可以运行在任何服务器和任何系统上。TypeScript 是开源的。 TypeScript 是 JavaScript 的一个超集，主要提供了类型系统和对 ES6 的支持，它由 微软 开发。 TS 好处1.代码的可维护性。类型系统实际上是最好的文档。2.非常包容，TS是JS的超集。3.活跃的社区。 Hello TypeScript1234function sayHello(person:string) &#123; return &apos;Hello,&apos; + person;&#125;let user = &apos;Tom&apos;; 编译成.js文件12345function sayHello(person) &#123; return &apos;Hello, &apos; + person;&#125;var user = &apos;Tom&apos;;console.log(sayHello(user)); 使用 : 指定变量的类型，: 的前后有没有空格都可以。]]></content>
+      <categories>
+        <category>TypeScript</category>
+      </categories>
+      <tags>
+        <tag>TypeScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[React RouterV4]]></title>
+    <url>%2F2019%2F02%2F24%2Freact-router%2F</url>
+    <content type="text"><![CDATA[React Router react-router和react-router-dom理解 react-router提供了一些router的核心api,包括Router,Route,Switch等 2.react-router-dom提供了BrowserRouter,HashRouter,Route,Link,NavLink react-router-dom核心用法1.HashRouter和BrowserRouter 2.Route:path,exact,component,renderRoute:路由的根基path:路由的匹配exact:精准匹配component:渲染的 React 组件render:方便的内联渲染和包裹 3.NavLink,LinkLink:导航，路由跳转 4.Switch渲染与该地址匹配的第一个子节点 ,匹配到不会往下继续匹配。 5.Redirect路由重定向 6.HashRouter和BrowserRouterHashRouter: http://localhost:3000/#/admin，带有#号BrowserRouter:http://localhost:3000/admin,基于浏览的Router]]></content>
+      <categories>
+        <category>React</category>
+      </categories>
+      <tags>
+        <tag>React</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[React]]></title>
+    <url>%2F2019%2F02%2F21%2Freact%2F</url>
+    <content type="text"><![CDATA[React介绍 概述 Fackbook开源的一个JavaScript库 React结合生态库构成一个MVC框架 React特点· Declarative(声明式编码)· Component-Based(组件化编码) 组件化、复用· 高效-高效的DOM Diff算法，最小化页面重绘 通过创建虚拟DOM的方式，不是直接操作DOM，而是通过构建JavaScript的语法，拼接DOM对象，一次性插入DOM· 单向数据流 Vue在输入框表单上是双向数据流。而React都是单向数据流，自上而下的数据传递，“从一棵树的根流向它的叶子” 生态介绍· React + React-Router + Redux + Axios + Babel + Webpack 编程式和声明式 编程式实现· 需要以具体代码表达在哪里(where)做什么(what),如何实现(how) 声明式实现· 只需要声明在哪里(where)做什么(what)，而无需关心如何实现(how) 生命周期 getDefaultProps· 初始化一个props属性，props来自父组件或其它组件传递过来的 getInitalState· 组件的初始化状态 componentWillMount()· 组件初始化之前调用这个方法，此时可以进行开启定时器、向服务器发送请求等操作 render()· 组件渲染 componentDidMount· 组件DOM插入完调用的方法，此时页面中有了真正的DOM的元素，可以进行DOM相关的操作 componentWillReceiveProps()· 来自父组件传递属性调用的方法。组件接收到属性时触发 shouldComonentUpdate()· 组件的更新，调用setState方法就会这个生命周期。组件的状态发生改变时触发 componentWillUpdate()· 组件即将被更新时触发 componentDidUpdate()· 组件被更新完成后触发。页面中产生了新的DOM的元素，可以进行DOM操作 componentWillUnmount· 组件被销毁时触发。这里我们可以进行一些清理操作，例如清理定时器，取消Redux的订阅事件等等。]]></content>
+      <categories>
+        <category>React</category>
+      </categories>
+      <tags>
+        <tag>React</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Node.js介绍]]></title>
+    <url>%2F2019%2F01%2F13%2F1-Node-introduction%2F</url>
+    <content type="text"><![CDATA[Node.js概述 Node.js概述 Node.js的首要目标是提供一种简单的、用于创建高性能服务器及可在该服务器中运行的各种应用程序的开发工具。 实现高性能的服务器 Node.js运行的是高性能 V8 JavaScript脚本语言，该语言是一种可以运行在服务端的JavaScript脚本语言。V8 JavaScript 引擎是由Google公司使用C++语言开发的一种高性能JavaScript引擎。不止在浏览器中运行，Node.js将其转用在了服务器中，提供了各种不同用途的API。 意味开发者编写的高端JavaScript脚本代码与开发者编写的低端的C语言具有非常相近的执行效率。 非阻塞型I/O及事件环机制 非阻塞型I/O例如在传统的单线程处理机制中，执行了访问数据库的代码之后，整个线程都将暂停下来，等待数据库返回的查询结果之后才能继续执行其后面的代码，I/O操作阻塞了代码的执行，降低了程序的执行效率。而Node.js采用非阻塞型I/O机制，执行了访问数据库的代码之后将立即执行后面的代码，把数据库返回结果的处理代码放在回调函数中执行，从而提高程序的执行效率。 事件环机制在Node.js中，在一个时刻只能执行一个事件回调函数，但是在执行一个事件回调函数的中途可以转而处理其他事件（包括触发新的事件，声明该事件的回调函数等），然后返回继续执行原事件回调函数，这种处理机制称为事件环机制。 Node.js适合开发的应用程序 当应用程序需要处理大量并发的输入/输出，而在向客户端发出响应之前，应用程序内部并不需要进行非常复杂的处理的时候。 聊天服务器:存在大量用户与聊天服务器之间的并发连接，而服务器本身并不存在非常复杂的处理。 综合服务类网站或电子商务网站的服务器。 示例应用程序1234567891011121314// 引入http模块const http = require(&apos;http&apos;);// createServer方法创建用于接受HTTP客户端请求并响应的HTTP服务器应用程序http.createServer(function(req,res) &#123;/** * req:客户端请求对象，res:服务端所做出的响应对象。 * 响应状态码定义200，内容类型text/html。 * 定义utf-8为了在浏览器中显示中文 * 通过响应对象的end方法输出一行HTMl代码并结束响应流 */ res.writeHead(200,(&apos;Content-Type&apos;:&apos;text-html&apos;)); res.write(&apos;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;/&gt;&lt;/head&gt;&apos;) res.end(&apos;hello word&apos;)&#125;).listen(8081);]]></content>
+      <categories>
+        <category>Node.js</category>
+      </categories>
+      <tags>
+        <tag>Node.js</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[JavaScript的作用域和变量提升、函数声明]]></title>
+    <url>%2F2019%2F01%2F03%2Fjs-shangxiawen%2F</url>
+    <content type="text"><![CDATA[什么是作用域 作用域就是指程序源代码定义变量的区域。 作用域规定如何查找变量，确定对当前执行代码对变量对访问权限。123456789101112var value = 1;function foo() &#123; console.log(value);&#125;function bar() &#123; var value = 2; foo();&#125;bar(); 首先是bar()函数执行，在bar()函数内部foo()函数执行，先在foo函数对当前作用域进行查找，如果没有，则查找上面一层的代码，也就是 value 等于 1，所以结果会打印 1。 顺序执行123456789101112131415var foo = function () &#123; console.log(&apos;foo1&apos;);&#125;foo(); // foo1var foo = function () &#123; console.log(&apos;foo2&apos;);&#125;foo(); // foo2 123456789101112131415function foo() &#123; console.log(&apos;foo1&apos;);&#125;foo(); // foo2function foo() &#123; console.log(&apos;foo2&apos;);&#125;foo(); // foo2 JavaScript 引擎并非一行一行地分析和执行程序，而是一段一段地分析执行。当执行一段代码的时候，会进行一个“准备工作”，比如第一个例子中的变量提升，和第二个例子中的函数提升。 变量提升 通常JS引擎会在正式执行之前先进行一次预编译，在这个过程中，首先将变量声明及函数声明提升至当前作用域的顶端，然后进行接下来的处理。 如果在当前作用域存在此声明对变量，无论它在什么地方声明，引用此变量时就会在当前作用域中查找，不会去外层作用域了。 12345678910var foo = 3;function hoistVariable() &#123; var foo = foo || 5; console.log(foo); // 5&#125;hoistVariable(); 虽然外层作用域有个foo变量，但函数内是不会去引用的。先在当前作用域寻找foo变量，如果当前作用域foo不存在，则通过作用域链往上继续找foo变量，如果继续不存在而又未定义则报错。 函数提升 为什么函数可以在声明之前就可以调用，并且跟变量声明不同的是，它还能得到正确的结果，其实引擎是把函数声明整个地提升到了当前作用域的顶部 123456789 function hoistFunction() &#123; foo(); // output: I am hoisted function foo() &#123; console.log(&apos;I am hoisted&apos;); &#125;&#125;hoistFunction(); 如果在同一个作用域中存在多个同名函数声明，后面出现的将会覆盖前面的函数声明： 12345678910111213 function hoistFunction() &#123; function foo() &#123; console.log(1); &#125; foo(); // output: 2 function foo() &#123; console.log(2); &#125;&#125;hoistFunction(); 函数声明和函数表达式 1234567891011121314// 函数声明function foo() &#123; console.log(&apos;function declaration&apos;);&#125;// 匿名函数表达式var foo = function() &#123; console.log(&apos;anonymous function expression&apos;);&#125;;// 具名函数表达式var foo = function bar() &#123; console.log(&apos;named function expression&apos;);&#125;; 匿名函数表达式，其实是将一个不带名字的函数声明赋值给了一个变量， 具名函数表达式，则是带名字的函数赋值给一个变量，需要注意到是，这个函数名只能在此函数内部使用。 函数表达式可以通过变量访问，所以也存在变量提升同样的效果。 函数的优先权是最高的，它永远被提升至作用域最顶部，然后才是函数表达式和变量按顺序执行]]></content>
+      <categories>
+        <category>JavaScript</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[JavaScript 的 async/await]]></title>
+    <url>%2F2018%2F12%2F28%2Fasync%2F</url>
+    <content type="text"><![CDATA[什么是async、await async 是“异步”的简写，而 await 可以认为是 async wait 的简写。所以应该很好理解 async 用于申明一个 function 是异步的，而 await 用于等待一个异步方法执行完成。 async1.async用法，它作为一个关键字放到函数前面，用于表示函数是一个异步函数，因为async就是异步的意思， 异步函数也就意味着该函数的执行不会阻塞后面代码的执行。 写一个async 函数123async function test() &#123; return &quot;hello world&quot;&#125; 2.语法就是在函数前面加上async关键字，用来表示它是异步的，怎么调用呢？async 函数也是函数，平时我们怎么使用函数就怎么使用它，直接加括号调用就可以了，为了表示它没有阻塞它后面代码的执行。1234567console.log(test())//输出的是一个Promisea对象Promise__proto__: Promise[[PromiseStatus]]: &quot;resolved&quot;[[PromiseValue]]: &quot;hell&quot; 3.async 函数返回的是一个 Promise 对象。从文档中也可以得到这个信息。async 函数（包含函数语句、函数表达式、Lambda表达式）会返回一个 Promise 对象，如果在函数中 return 一个直接量，async 会把这个直接量通过 Promise.resolve() 封装成 Promise 对象。 await1.一般来说，都认为 await 是在等待一个 async 函数完成。不过按语法说明，await 等待的是一个表达式，这个表达式的计算结果是 Promise 对象或者其它值（换句话说，就是没有特殊限定）。 2.async函数返回的是一个Promise对象，所以await可以用于等待一个async函数的返回值，await就是等待async的返回值。 1234567891011function test1() &#123; reuturn &quot;test1&quot;&#125;function test2() &#123; reuturn &quot;test2&quot;&#125;async function test() &#123; const v1 = await test1(); const v2 = await test2();&#125;test() 3.async 函数调用不会造成阻塞，它内部所有的阻塞都被封装在一个 Promise 对象中异步执行。 async/await 干了啥1.async会将其后的函数的返回值封装成一个Promise对象，而await会等待这个Promise完成，并将其resolve的结果返回出来。 2.async/await 的优势在于处理 then 链，单一的 Promise 链并不能发现 async/await 的优势，但是，如果需要处理由多个 Promise 组成的 then 链的时候，优势就能体现出来了123456789101112131415161718192021222324/** * 传入参数 n，表示这个函数执行的时间（毫秒） * 执行的结果是 n + 200，这个值将用于下一步骤 */function takeLongTime(n) &#123; return new Promise(resolve =&gt; &#123; setTimeout(() =&gt; resolve(n + 200), n); &#125;);&#125;function step1(n) &#123; console.log(`step1 with $&#123;n&#125;`); return takeLongTime(n);&#125;function step2(n) &#123; console.log(`step2 with $&#123;n&#125;`); return takeLongTime(n);&#125;function step3(n) &#123; console.log(`step3 with $&#123;n&#125;`); return takeLongTime(n);&#125; 现在用 Promise 方式来实现这三个步骤的处理12345678910111213function doIt() &#123; console.time(&quot;doIt&quot;); const time1 = 300; step1(time1) .then(time2 =&gt; step2(time2)) .then(time3 =&gt; step3(time3)) .then(result =&gt; &#123; console.log(`result is $&#123;result&#125;`); console.timeEnd(&quot;doIt&quot;); &#125;);&#125;doIt(); 用 async/await 来实现1234567891011async function doIt() &#123; console.time(&quot;doIt&quot;); const time1 = 300; const time2 = await step1(time1); const time3 = await step2(time2); const result = await step3(time3); console.log(`result is $&#123;result&#125;`); console.timeEnd(&quot;doIt&quot;);&#125;doIt(); 捕捉错误既然.then(..)不用写了，那么.catch(..)也不用写，可以直接用标准的try catch语法捕捉错误。1234567891011const start = async function () &#123; try &#123; console.log(&apos;start&apos;); await sleep(3000); // 这里得到了一个返回错误 // 所以以下代码不会被执行了 console.log(&apos;end&apos;); &#125; catch (err) &#123; console.log(err); // 这里捕捉到错误 `error` &#125;&#125;;]]></content>
+      <categories>
+        <category>JavaScript</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[小程序http封装]]></title>
+    <url>%2F2018%2F12%2F05%2FweChat-wx-request%2F</url>
+    <content type="text"><![CDATA[小程序wx.request请求封装 12345678910config.js---api_base_url:接口域名appkey:头部携带的参数const config = &#123; api_base_url: &apos;&apos;, appkey: &quot;&quot;,&#125;export &#123;config &#125; 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364http.js---import &#123;config&#125; from &apos;../config.js&apos;定义状态码返回的错误信息 const tips = &#123; 1: &apos;抱歉，出现了一个错误&apos;, 1005:&apos;appkey无效，请前往www.7yue.pro申请&apos;, 3000:&apos;期刊不存在&apos;&#125;解构class HTTP&#123; 默认GET请求方式，返回Promise request(&#123;url,data=&#123;&#125;,method=&apos;GET&apos;&#125;)&#123; return new Promise((resolve, reject)=&gt;&#123; this._request(url,resolve,reject,data, method) &#125;) &#125; _request(url,resolve, reject, data=&#123;&#125;, method=&apos;GET&apos;)&#123; wx.request(&#123; url:config.api_base_url + url, method:method, data:data, header:&#123; &apos;content-type&apos;:&apos;application/json&apos;, &apos;appkey&apos;:config.appkey &#125;, success:(res)=&gt;&#123; const code = res.statusCode.toString() if (code.startsWith(&apos;2&apos;))&#123; resolve(res.data) &#125; else&#123; reject() const error_code = res.data.error_code this._show_error(error_code) &#125; &#125;, fail:(err)=&gt;&#123; reject() this._show_error(1) &#125; &#125;) &#125; _show_error(error_code)&#123; if(!error_code)&#123; error_code = 1 &#125; const tip = tips[error_code] wx.showToast(&#123; title: tip?tip:tips[1], icon:&apos;none&apos;, duration:2000 &#125;) &#125;&#125;export &#123;HTTP&#125; 1234567891011121314151617181920212223242526272829model.js---import &#123; HTTP&#125;from &apos;http.js&apos;ES6继承class Model extends HTTP &#123; GET请求 getDetail(bid) &#123; return this.request(&#123; url: `book/$&#123;bid&#125;/detail` &#125;) &#125; POST请求 postComment(bid, comment) &#123; return this.request(&#123; url: &apos;book/add/short_comment&apos;, method: &apos;POST&apos;, data: &#123; book_id: bid, content: comment &#125; &#125;) &#125;&#125; 123456789101112使用---import &#123; Models&#125; from &apos;/models.js&apos;实例化对象const model = new Models()model.getDetail().then(res =&gt; &#123;&#125;)]]></content>
+      <categories>
+        <category>小程序</category>
+      </categories>
+      <tags>
+        <tag>小程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[小程序组件]]></title>
+    <url>%2F2018%2F11%2F04%2FweChat-component%2F</url>
+    <content type="text"><![CDATA[小程序组件、事件与属性 组件引用1234567891011121314151617181920212223242526272829303132Component(&#123; /** * 组件的属性列表，外部暴露的属性 */ properties: &#123; like:&#123; type:Number、String、Boolean, //属性的类型，必填 value:false, //初始值，选填 observer: function (newVal, oldVal) &#123; this.setData(&#123; val:newVal &#125;) &#125; // observer属性被改变时执行的函数（可选)，不要直接去改变properties的值(发生内存泄漏)，通过data定义的数据，通过setData把properties的值赋值data定义的值 &#125; &#125;, /** * 组件的初始数据 */ data: &#123; isLike:false, val:null &#125;, /** * 组件的方法列表 */ methods: &#123; this.properties.like//访问properties的属性 &#125;&#125;) 1.微信开发者工具小程序新建Component,新建组件目录2.properties：对外属性，即如果外部的wxml文件传入数据时，会把数据设置成properties的属性。(类似vue父子组件的传值类型限定)3.data数据的状态绑定4.methods组件的方法和生命周期的使用5.只有setData才可以更新data的数据]]></content>
+      <categories>
+        <category>小程序</category>
+      </categories>
+      <tags>
+        <tag>小程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[vue-router的history模式]]></title>
+    <url>%2F2018%2F10%2F16%2Fvue-router-history%2F</url>
+    <content type="text"><![CDATA[History模式 简述1.vue-router 默认 hash 模式 ,后面带有#号，如果不要hash，可以用路由的 history 模式，后面不带#号。 2.前端处理12345const router = new VueRouter(&#123; mode: &apos;history&apos;, base:&quot;/app&quot; routes: [...]&#125;) base：应用的基路径。例如，如果整个单页应用服务在 /app/ 下，然后 base 就应该设为 “/app/“。如果放在服务器app文件下面没有base设置，页面会出现空白，无法显示页面。 3.history 模式需要后端的配置支持后端配置history模式详情]]></content>
+      <categories>
+        <category>vue</category>
+      </categories>
+      <tags>
+        <tag>vue-router</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[moment在vue时间格式化]]></title>
+    <url>%2F2018%2F10%2F10%2Fmoment%2F</url>
+    <content type="text"><![CDATA[Vue–moment时间格式插件安装和使用 moment文档安装插件1yarn add moment -S 导入使用12345678910import moment from &apos;moment&apos;filters: &#123; dateyear(time)&#123; return moment(time*1000).format(&quot;YYYY年MM月DD日&quot;) &#125;, formatDate(time) &#123; return moment(time*1000).format(&quot;YYYY-MM-DD HH:mm:ss&quot;) &#125;&#125;, filters过滤器，time时间戳的形参，time为什么要乘以1000？因为我公司的后端是PHP，PHP返回的时间戳需要乘以1000,格式化的时间才准确显示。123&lt;template&gt; &lt;div&gt;&#123;&#123;item.add_time | formatDate&#125;&#125;&lt;/div&gt;&lt;/template&gt; 在vue模版时间格式化的显示]]></content>
+      <categories>
+        <category>vue</category>
+      </categories>
+      <tags>
+        <tag>vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Vuex]]></title>
+    <url>%2F2018%2F10%2F09%2Fvue-vuex%2F</url>
+    <content type="text"><![CDATA[Vuex的使用 Vuex是什么Vuex是vue的全局状态管理模式，为所有组件管理状态，当多组件共享状态时，应当使用vuex，数据更好进行管理。简单说就是无论父组件还是子组件或子子组件都可以直接从vuex获取状态，vuex提供统一状态管理，更好去管理数据。 Vuex图解1.通过提交mutations去改变state状态，从而state状态渲染到视图组件上2.视图组件可以dispatch派发一个Action进行异步操作，异步操作在action里面，在action里面可以commit-mutation3.视图组件可以派发action去提交Mutations，从而改变state State1.state是vuex唯一的状态源，用一个对象包含了全部的应用层级状态。123456state.js const state = &#123; count:1&#125;export default state; 2.如何在vue组件获取vuex状态12345678const Counter = &#123; template: `&lt;div&gt;&#123;&#123; count &#125;&#125;&lt;/div&gt;`, computed: &#123; count () &#123; return this.$store.state.count &#125; &#125;&#125; 通过在根实例注册store选项，注入到根组件的所有子组件，且子组件能通过 this.$store 访问到。通过计算属性返回某个状态，每当this.$store.state.count变化的时候，都会重新求取计算属性，计算属性有缓存。 3.mapState辅助函数当一个组件需要获取多个状态时候，将这些状态都声明为计算属性会有些重复和冗余，帮助我们生成计算属性，让你少按几次键12345678import &#123; mapState &#125; from &apos;vuex&apos;export defauilt &#123; computed:&#123; ...mapState( [&apos;count&apos;] ) &#125;&#125; Getter简述Vuex 允许我们在 store 中定义“getter”（可以认为是 store 的计算属性）。就像计算属性一样，getter 的返回值会根据它的依赖被缓存起来，且只有当它的依赖值发生了改变才会被重新计算。123getters.jsexport const count = state =&gt; state.count 访问方式1.组件中使用它12345computed: &#123; doneTodosCount () &#123; return this.$store.getters.count &#125;&#125; 2.mapGetters辅助函数，个人比较喜欢当一种方式使用对象展开运算符将 getter 混入 computed 对象中12345678910import &#123; mapGetters &#125; from &apos;vuex&apos;export default &#123; computed: &#123; ...mapGetters([ &apos;count&apos;, &apos;anotherGetter&apos;, ]) &#125;&#125; 如果你想将一个 getter 属性另取一个名字，使用对象形式：1234mapGetters(&#123; 把 `this.doneCount` 映射为 `this.$store.getters.doneTodosCount` doneCount: &apos;doneTodosCount&apos;&#125;) Mutation更改 Vuex 的 store 中的状态的唯一方法是提交 mutation。个人比较常用的一种方式 Mutation配置123mutations-types.jsexport const SET_MUTATION = &apos;export const SET_MUTATION&apos; 使用常量替代 mutation 事件类型在各种 Flux 实现中是很常见的模式。这样可以使 linter 之类的工具发挥作用，同时把这些常量放在单独的文件中可以让你的代码合作者对整个 app 包含的 mutation 一目了然： 1234567891011mutations.jsimport * as types from &apos;./mutations-types.js&apos;const mutations = &#123; [types.SET_MUTATION](state,payload)&#123; &#125;&#125;export default mutations; state参数可以获取vuex中所有数据源，payload是提交mutations传入的数据参数。 提交mutation1.mapMutations辅助函数123456789101112import &#123; mapMutations &#125; from &apos;vuex&apos;methods:&#123; test()&#123; this.mutation(&#123; amount: 10 &#125;) &#125;, ...mapMutations(&#123; mutation:&apos;types.SET_MUTATION&apos; &#125;)&#125; 将 this.mutation() 映射为 this.$store.commit(&#39;increment&#39;)。this.mutation()提交mutation。12345678910接收payloadmutations.jsimport * as types from &apos;./mutations-types.js&apos;const mutations = &#123; [types.SET_MUTATION](state,payload)&#123; state.count = payload.amount &#125;&#125; ActionAction 提交的是 mutation，而不是直接变更状态。Action 可以包含任意异步操作。 注册简单的action12345import * as types from &apos;./mutations-types.js&apos;export const actionFn = function(&#123;commit,state&#125;,&#123;amount&#125;)&#123; commit(types.SET_MUTATION,amount)&#125; 在组件中分发 Action12345678910import &#123; mapActions &#125; from &apos;vuex&apos;methods:&#123; test()&#123; this.actionFn(&#123;amount:10&#125;) &#125;, ...mapActions([ &apos;actionFn&apos; ])&#125;]]></content>
+      <categories>
+        <category>vue</category>
+      </categories>
+      <tags>
+        <tag>vuex</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[H5的支付]]></title>
+    <url>%2F2018%2F10%2F01%2Fh5-pay%2F</url>
+    <content type="text"><![CDATA[JSSDK微信支付、h5浏览器支付宝支付、微信h5支付 微信支付引入JS文件1http://res2.wx.qq.com/open/js/jweixin-1.4.0.js 通过config接口注入权限验证配置使用JSSDK的页面必须先配置信息，否则无法使用。配置的信息通过后端接口返回，前端调用。chooseWXPay:微信支付的接口12345678wx.config(&#123; debug: true, // 开启调试模式 appId: &apos;&apos;, // 必填，公众号的唯一标识 timestamp: , // 必填，生成签名的时间戳 nonceStr: &apos;&apos;, // 必填，生成签名的随机串 signature: &apos;&apos;,// 必填，签名 jsApiList: [&apos;chooseWXPay&apos;] // 必填，需要使用的JS接口列表&#125;); 通过ready接口处理成功验证config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。12345678910111213141516wx.ready(function()&#123; wx.chooseWXPay(&#123; timestamp: , // 支付签名时间戳 nonceStr: , // 支付签名随机串，不长于 32 位 package:, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=\*\*\*） signType: &apos;MD5&apos;, // 签名方式，默认为&apos;SHA1&apos;，使用新版支付需传入&apos;MD5&apos; paySign: , // 支付签名 success: function (res) &#123; if(res.errMsg == &quot;chooseWXPay:ok&quot;)&#123; alert(&quot;支付成功&quot;) &#125;else&#123; alert(res.errMsg); &#125; &#125; &#125;);&#125;); 1.坑：当支付成功时，前端看到支付成功，有个坑可能会出现，就是后端订单的支付信息可能会显示未支付状态2.出现的原因：用户支付完成，直接退出，后端未接收到支付完成的回调3.解决方法：后端提供支付订单状态接口，在支付成功时调用后端接口来确认订单支付状态 非微信浏览器的微信h5支付12wxpay.mweb_url,直接从后台返回的URL跳转唤起微信支付window.location.href = wxpay.mweb_url 后端接口返回wxpay参数下面的mweb_url,前端跳转唤起微信支付即可，前端无需做任何处理 支付宝支付1.关于在h5浏览器的支付宝支付，前端直接调用后端接口2.后端提供接口alipay里有关于html页面，显示支付宝支付页面，继续支付和已完成支付，点击继续支付即可完成支付3.坑：后端提供的接口是否可以跳转支付页面，需要前后端联调前端处理123456res =&gt; &#123; const div = document.createElement(&apos;div&apos;); div.innerHTML = res.html; //接口返回的html document.body.appendChild(div); document.forms.alipaysubmit.submit(); &#125;]]></content>
+      <categories>
+        <category>H5</category>
+      </categories>
+      <tags>
+        <tag>wx.chooseWXPay</tag>
+        <tag>Alipay</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[搭建个人博客]]></title>
+    <url>%2F2018%2F09%2F30%2Fblog-construct%2F</url>
+    <content type="text"><![CDATA[hexo + github 搭建属于自己的个人博客 准备工作1.node：安装node，到官网下载，一路安装即可，在命令行输入node -v，出现版本号安装成功。 2.git：一路安装即可，教程 3.github：程序员的交流网站，用来做博客的远程创库、域名、服务器。 (Mac系统下载Homebrew，直接在终端进行下载，brew install git、brew install node) 安装hexo框架1npm install -g hexo 初始化项目终端cd到一个选定的目录文件下(如新建一个文件夹blog)1hexo init 查看blog文件下是否存在node_modules文件夹,不在则执行如下命令1hexo install 开启hexo服务器，在浏览器打开网址http://localhost:4000，出现hexo页面1hexo s 创建github仓库1.打开github，注册账号，需要和电脑关联，在本地创建ssh key，可在百度输入github与本地电脑关联 2.创建github仓库,点击+号(New repository),新建仓库，名为用户名.github.io固定写法。(用户名就是自己github的名字) 3.Create repository创建仓库，其它不用选择 4.cd到blog文件夹，打开配置文件_config.yml1234deploy: type: git repository: https://github.com/xxx/xxx.github.io.git branch: master 你需要将repository后xxx换成你自己的用户名,浏览器输入xxx.github.io 发布文章cd到blog文件夹，执行如下命令新建文章1hexo new "postName" 名为postName的文件夹在/blog/source/_posts下。 编辑文章完成，终端cd到blog文件夹下，执行如下命令1hexo g 1hexo d 安装theme可以去搜索关于hexo的主题页，修饰自己的个人网站,在github上Clone or download地址终端cd到blog的目录下执行如下命令1git clone https://github.com/iissnan/hexo-theme-next themes/next cd到blog文件夹(每次部署文章的步骤)1hexo clean 1hexo g 1hexo d 至于更改theme内容，配置主题的网站，去修改blog/_config.yml文件和blog/themes/next/_config.yml，不要忘记冒号：加空格 绑定个人域名1.想让自己的网站看起来更有个性，可以去万网购买喜欢的域名~~ 2.购买域名后，需要进行域名解析，之前先进行域名的实名验证，填写好信息，万网有详细的教程 3.在blog/source建立CNAME的文件，没有后缀名，内容输入购买的域名，如www.xxx.com 4.在万网对域名进行解析，进入解析设置，点击添加记录，需要添加4条记录12345第一条记录：记录类型：A主机记录:www解析线路：默认记录值192.30.252.154 12345第二条记录：记录类型：A主机记录:@解析线路：默认记录值192.30.252.154 12345第三条记录：记录类型：A主机记录:www解析线路：默认记录值192.30.252.153 12345第四条记录：记录类型：A主机记录:@解析线路：默认记录值192.30.252.153 总结和说明hexo + github搭建个人网站非常简单，主要在域名解析部分，当时各种解析添加记录都无法进行解析，这4条记录一定得添加好，绑定属于自己的域名。搭建属于自己的个人网站成就感满满，也希望自己一直坚持写博客，把自己遇到的问题和所做的收获一点一滴记录起来。明天是国庆节，国庆节快乐！！！]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>github</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[为什么写博客]]></title>
+    <url>%2F2018%2F09%2F28%2Fblog-start%2F</url>
+    <content type="text"><![CDATA[为什么坚持写博客? 原因 这个博客是由我自己一点点去搭建的，其中也遇到了不少麻烦，特别是在域名解析部分。 为什么要去搭建一个博客呢？可以看看自己的轨迹，做过什么，不忘处心，不遗失自己。 之前一直有想在博客园去写博客，但发现自己写不出东西来～～～，总之就是下不了笔。 我自己搭建的博客就是想把自己对前端或其它领域某些知识点自己思考写出来，积累下来。 有很多事情你以为你知道，其实你什么都不知道。 我的理解 未来自己写博客的过程中，对某个知识点进行比较全的解析，怎么来的？用在哪里？了解其原理。 用心去写，希望在多年以后回过头来看，原来曾经自己写得这么“傻逼”。 这是第一篇文章，以后慢慢来写，因为菜，所以好好学习、天天向上。 下一篇想写个人博客的搭建！]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>随笔</tag>
+      </tags>
+  </entry>
+</search>
