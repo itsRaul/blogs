@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="你不知道的JavaScript," />
+  <meta name="keywords" content="Node.js," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="提升和作用域闭包">
-<meta name="keywords" content="你不知道的JavaScript">
+<meta name="description" content="Node.js处理http请求">
+<meta name="keywords" content="Node.js">
 <meta property="og:type" content="article">
-<meta property="og:title" content="提升和作用域闭包">
-<meta property="og:url" content="http://yoursite.com/2019/04/01/2-JS-tishenghebibao/index.html">
+<meta property="og:title" content="node-http">
+<meta property="og:url" content="http://yoursite.com/2019/05/29/node-http/index.html">
 <meta property="og:site_name" content="刘付鹏的个人网站">
-<meta property="og:description" content="提升和作用域闭包">
+<meta property="og:description" content="Node.js处理http请求">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-01T13:48:24.012Z">
+<meta property="og:updated_time" content="2019-05-29T15:43:13.889Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="提升和作用域闭包">
-<meta name="twitter:description" content="提升和作用域闭包">
+<meta name="twitter:title" content="node-http">
+<meta name="twitter:description" content="Node.js处理http请求">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/04/01/2-JS-tishenghebibao/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/05/29/node-http/"/>
 
 
 
 
 
-  <title>提升和作用域闭包 | 刘付鹏的个人网站</title>
+  <title>node-http | 刘付鹏的个人网站</title>
   
 
 
@@ -287,7 +287,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/01/2-JS-tishenghebibao/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/29/node-http/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="刘付鹏">
@@ -304,7 +304,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">提升和作用域闭包</h1>
+          <h1 class="post-title" itemprop="name headline">node-http</h1>
         
 
         <div class="post-meta">
@@ -316,8 +316,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-01T00:00:00+08:00">
-                2019-04-01
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-29T23:40:30+08:00">
+                2019-05-29
               </time>
             
 
@@ -339,8 +339,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/你不知道的JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">你不知道的JavaScript</span>
+                  <a href="/categories/Node-js/" itemprop="url" rel="index">
+                    <span itemprop="name">Node.js</span>
                   </a>
                 </span>
 
@@ -376,23 +376,32 @@
       
 
       
-        <h3 id="提升和作用域闭包"><a href="#提升和作用域闭包" class="headerlink" title="提升和作用域闭包"></a>提升和作用域闭包</h3><a id="more"></a>
-<h3 id="提升"><a href="#提升" class="headerlink" title="提升"></a>提升</h3><blockquote>
-<p>这意味着无论作用域中的声明出现在什么地方，都将在代码本身被执行前首先进行处理。<br>可以将这个过程形象地想象成所有的声明（变量和函数）都会被“移动”到各自作用域的<br>最顶端，这个过程被称为提升。<br>声明本身会被提升，而包括函数表达式的赋值在内的赋值操作并不会提升。<br>要注意避免重复声明，特别是当普通的  var 声明和函数声明混合在一起的时候，否则会引<br>起很多危险的问题！</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">a = 2;</span><br><span class="line">var a;</span><br><span class="line">console.log(a) //2</span><br><span class="line">------------------</span><br><span class="line">进行如下处理</span><br><span class="line">var a;</span><br><span class="line">a = 2;</span><br><span class="line">变量出现的位置被“移动”到了最上面，这个过程就叫做提升</span><br></pre></td></tr></table></figure>
-<p>变量和函数在内的所有声明都会在任何代码被执行前首先被处理。JavaScript实际会将其看两个声明：var a;和a = 2;第一个定义声明是在编译阶段进行，第二个赋值声明会被留在原地等待执行阶段。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">foo()</span><br><span class="line">function foo() &#123;</span><br><span class="line">    console.log(a) //undefined</span><br><span class="line">    var a = 2;</span><br><span class="line">&#125;</span><br><span class="line">--------------</span><br><span class="line">进行如下处理</span><br><span class="line">function foo() &#123;</span><br><span class="line">    var a;</span><br><span class="line">    console.log(a) //undefined</span><br><span class="line">    a = 2;</span><br><span class="line">&#125;</span><br><span class="line">foo()</span><br></pre></td></tr></table></figure>
-<p>foo函数声明被提升了，但函数表达式却不会被提升。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">foo() //TypeError</span><br><span class="line">var foo = function bar() &#123;</span><br><span class="line">    //...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>即使是具名函数表达式，名称标识符在赋值之前也无法在所在作用域中使用。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">foo() //1</span><br><span class="line">var foo;</span><br><span class="line">function foo() &#123;</span><br><span class="line">    console.log(1)</span><br><span class="line">&#125;</span><br><span class="line">foo = function() &#123;</span><br><span class="line">    console.log(2)</span><br><span class="line">&#125;</span><br><span class="line">-----------</span><br><span class="line">进行如下处理</span><br><span class="line">function foo() &#123;</span><br><span class="line">    console.log(1)</span><br><span class="line">&#125;</span><br><span class="line">foo() //1</span><br><span class="line">foo = function() &#123;</span><br><span class="line">    console.log(2)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>函数声明和变量都会被提升，函数首先被提升，然后才是变量。后面的函数声明还可以覆盖前面的函数声明</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">foo() //3</span><br><span class="line"></span><br><span class="line">function foo() &#123;</span><br><span class="line">    console.log(1)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var foo = function() &#123;</span><br><span class="line">    console.log(2)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function foo() &#123;</span><br><span class="line">    console.log(3)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="作用域闭包"><a href="#作用域闭包" class="headerlink" title="作用域闭包"></a>作用域闭包</h3><blockquote>
-<p>闭包就是能够读取其他函数内部变量的函数。由于在Javascript语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成”定义在一个函数内部的函数”。在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function foo() &#123;</span><br><span class="line">    var a = 2;</span><br><span class="line">    function bar() &#123;</span><br><span class="line">        console.log(a)</span><br><span class="line">    &#125;</span><br><span class="line">    return bar</span><br><span class="line">&#125;</span><br><span class="line">var baz = bar();</span><br><span class="line">baz(); //2</span><br></pre></td></tr></table></figure>
-<p>函数baz()能够访问foo()的内部作用域。将bar()函数本身当作一个值类型进行传递。而闭包的“神奇”之处正是可以阻止这件事情的发生。事实上内部作用域依然存在，因此<br>没有被回收。谁在使用这个内部作用域？原来是  bar() 本身在使用。bar()拥有foo()内部作用域的闭包，该作用域一直存活,bar()本身在使用。bar() 依然持有对该作用域的引用，而这个引用就叫作闭包。</p>
+        <h3 id="Node-js处理http请求"><a href="#Node-js处理http请求" class="headerlink" title="Node.js处理http请求"></a>Node.js处理http请求</h3><a id="more"></a>
+<h3 id="输入url，发生什么"><a href="#输入url，发生什么" class="headerlink" title="输入url，发生什么"></a>输入url，发生什么</h3><ol>
+<li><p>DNS解析，建立TCP连接，发送http请求<br>DNS解析：通过域名解析到一个ip地址，Remote Address（ip地址）</p>
+</li>
+<li><p>server接收到http请求，处理，并返回</p>
+</li>
+<li><p>客户端收到返回数据，处理数据（如渲染页面，执行js）</p>
+</li>
+</ol>
+<h3 id="处理get请求"><a href="#处理get请求" class="headerlink" title="处理get请求"></a>处理get请求</h3><h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const http = require(&apos;http&apos;)</span><br><span class="line"></span><br><span class="line">const server = http.createServer( (req,res) =&gt; &#123;</span><br><span class="line">    res.end(&apos;hello world&apos;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">server.listen(8000)</span><br></pre></td></tr></table></figure>
+<h4 id="get请求"><a href="#get请求" class="headerlink" title="get请求"></a>get请求</h4><ol>
+<li>get请求，即客户端要向server端获取数据，如查询列表</li>
+<li>通过querystring来传递数据，如a.html?a=100&amp;b=200</li>
+<li>浏览器直接访问，就发送get请求 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">const http = require(&apos;http&apos;)</span><br><span class="line">const querystring = require(&apos;querystring&apos;)</span><br><span class="line"></span><br><span class="line">const server = http.createServer( (req,res) =&gt; &#123;</span><br><span class="line">    // req.method 请求方法</span><br><span class="line">    const url = req.url //获取请求端完整url</span><br><span class="line">    req.query = querystring.parse(url.split(?)[1]) //解析querystring</span><br><span class="line">    res.end(JSON.stringify(req.query)) 将querystring返回</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">server.listen(8000)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="post请求"><a href="#post请求" class="headerlink" title="post请求"></a>post请求</h3><ol>
+<li><p>post请求，即客户端要像服务端传递数据，如新建</p>
+</li>
+<li><p>通过post data传递数据，后面会演示</p>
+</li>
+<li><p>浏览器无法直接模拟，需要手写js，活着使用postman</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">const http = require(&apos;http&apos;)</span><br><span class="line"></span><br><span class="line">const server = http.createServer( (req.res) =&gt; &#123;</span><br><span class="line">    if (req.methods === &quot;POST&quot;) &#123;</span><br><span class="line">        //req数据格式</span><br><span class="line">        console.log(&apos;req content-type&apos;,req.headers[&apos;content-type&apos;])</span><br><span class="line"></span><br><span class="line">        let postData = &apos;&apos;</span><br><span class="line">        req.on(&apos;data&apos;, chunk =&gt; &#123;</span><br><span class="line">            postData += chunk.toString()</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">         req.on(&apos;on&apos;, chunk =&gt; &#123;</span><br><span class="line">            res.end(&apos;hello word&apos;)</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="node处理http请求"><a href="#node处理http请求" class="headerlink" title="node处理http请求"></a>node处理http请求</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">const http = require(&apos;http&apos;)</span><br><span class="line"></span><br><span class="line">const querystring = require(&apos;querystring&apos;)</span><br><span class="line">/**</span><br><span class="line"> * url : http://localhost:8000/api/bolg/list?author=zhangsan&amp;key=A</span><br><span class="line"> *</span><br><span class="line"> */</span><br><span class="line">server = http.createServer( (req,res) =&gt; &#123;</span><br><span class="line">    const method = req.method</span><br><span class="line">    const url = req.url</span><br><span class="line">    const path = url.split(&apos;?&apos;)[0]</span><br><span class="line">    const query = querystring.parse(url.split(&apos;?&apos;)[1])</span><br><span class="line"></span><br><span class="line">    //设置返回格式为JSON</span><br><span class="line">    res.setHeader(&apos;Content-type&apos;,&apos;application/json&apos;)</span><br><span class="line"></span><br><span class="line">    //返回的数据</span><br><span class="line">    const resData = &#123;</span><br><span class="line">        method,</span><br><span class="line">        url,</span><br><span class="line">        path,</span><br><span class="line">        query</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //返回</span><br><span class="line">    if (method === &quot;GET&quot;) &#123;</span><br><span class="line">        res.end(JSON.stringify(resData))</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (req.methods === &quot;POST&quot;) &#123;</span><br><span class="line"></span><br><span class="line">        let postData = &apos;&apos;</span><br><span class="line">        req.on(&apos;data&apos;, chunk =&gt; &#123;</span><br><span class="line">            postData += chunk.toString()</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">         req.on(&apos;end&apos;, () =&gt; &#123;</span><br><span class="line">            resData.postData = postData</span><br><span class="line">            res.end(JSON.stringify(resData))</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    //&#123;&quot;method&quot;:&quot;GET&quot;,&quot;url&quot;:&quot;/api/bolg/list?author=zhangsan&amp;key=A&quot;,&quot;path&quot;:&quot;/api/bolg/list&quot;,&quot;query&quot;:&#123;&quot;author&quot;:&quot;zhangsan&quot;,&quot;key&quot;:&quot;A&quot;&#125;&#125;</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">server.listen(8000)</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -410,7 +419,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/你不知道的JavaScript/" rel="tag"># 你不知道的JavaScript</a>
+            <a href="/tags/Node-js/" rel="tag"># Node.js</a>
           
         </div>
       
@@ -423,8 +432,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/30/1-JS-zuoyongyu/" rel="next" title="作用域">
-                <i class="fa fa-chevron-left"></i> 作用域
+              <a href="/2019/04/17/axios/" rel="next" title="axios">
+                <i class="fa fa-chevron-left"></i> axios
               </a>
             
           </div>
@@ -432,10 +441,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/04/02/3-JS-this/" rel="prev" title="this">
-                this <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -571,7 +576,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#提升和作用域闭包"><span class="nav-number">1.</span> <span class="nav-text">提升和作用域闭包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提升"><span class="nav-number">2.</span> <span class="nav-text">提升</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作用域闭包"><span class="nav-number">3.</span> <span class="nav-text">作用域闭包</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-js处理http请求"><span class="nav-number">1.</span> <span class="nav-text">Node.js处理http请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输入url，发生什么"><span class="nav-number">2.</span> <span class="nav-text">输入url，发生什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#处理get请求"><span class="nav-number">3.</span> <span class="nav-text">处理get请求</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#示例"><span class="nav-number">3.1.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#get请求"><span class="nav-number">3.2.</span> <span class="nav-text">get请求</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#post请求"><span class="nav-number">4.</span> <span class="nav-text">post请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#node处理http请求"><span class="nav-number">5.</span> <span class="nav-text">node处理http请求</span></a></li></ol></div>
             
 
           </div>
