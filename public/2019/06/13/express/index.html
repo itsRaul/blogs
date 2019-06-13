@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="TypeScript," />
+  <meta name="keywords" content="Node.js," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="对象的类型(interfacer)">
-<meta name="keywords" content="TypeScript">
+<meta name="description" content="express使用">
+<meta name="keywords" content="Node.js">
 <meta property="og:type" content="article">
-<meta property="og:title" content="对象的类型——接口">
-<meta property="og:url" content="http://yoursite.com/2019/03/09/4-ts-interfaces/index.html">
+<meta property="og:title" content="express">
+<meta property="og:url" content="http://yoursite.com/2019/06/13/express/index.html">
 <meta property="og:site_name" content="刘付鹏的个人网站">
-<meta property="og:description" content="对象的类型(interfacer)">
+<meta property="og:description" content="express使用">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-09T01:48:13.038Z">
+<meta property="og:updated_time" content="2019-06-13T10:21:30.413Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="对象的类型——接口">
-<meta name="twitter:description" content="对象的类型(interfacer)">
+<meta name="twitter:title" content="express">
+<meta name="twitter:description" content="express使用">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/03/09/4-ts-interfaces/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/06/13/express/"/>
 
 
 
 
 
-  <title>对象的类型——接口 | 刘付鹏的个人网站</title>
+  <title>express | 刘付鹏的个人网站</title>
   
 
 
@@ -287,7 +287,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/09/4-ts-interfaces/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/13/express/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="刘付鹏">
@@ -304,7 +304,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">对象的类型——接口</h1>
+          <h1 class="post-title" itemprop="name headline">express</h1>
         
 
         <div class="post-meta">
@@ -316,8 +316,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-09T09:27:54+08:00">
-                2019-03-09
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-13T18:18:51+08:00">
+                2019-06-13
               </time>
             
 
@@ -339,8 +339,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/TypeScript/" itemprop="url" rel="index">
-                    <span itemprop="name">TypeScript</span>
+                  <a href="/categories/Node-js/" itemprop="url" rel="index">
+                    <span itemprop="name">Node.js</span>
                   </a>
                 </span>
 
@@ -376,22 +376,35 @@
       
 
       
-        <h3 id="对象的类型-interfacer"><a href="#对象的类型-interfacer" class="headerlink" title="对象的类型(interfacer)"></a>对象的类型(interfacer)</h3><a id="more"></a>
-<h3 id="什么是接口"><a href="#什么是接口" class="headerlink" title="什么是接口"></a>什么是接口</h3><p>对行为的抽象，而具体如何行动需要由类去实现。TypeScript 中的接口是一个非常灵活的概念，除了可用于对类的一部分行为进行抽象以外，也常用于对「对象的形状（Shape）」进行描述。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//定义接口</span><br><span class="line">interface Person &#123;</span><br><span class="line">    name:string;</span><br><span class="line">    age: number;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//定义一个变量，类型是Person。约束了 tom 的形状必须和接口 Person 一致。接口少了一些属性是不允许的，多一些属性也是不允许的。</span><br><span class="line">let tom:Person = &#123;</span><br><span class="line">    name: &apos;Tom&apos;,</span><br><span class="line">    age: 25</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="可选属性"><a href="#可选属性" class="headerlink" title="可选属性"></a>可选属性</h3><p>有时不需要匹配所有的属性，可以用可选属性。定义属性key后面加? 如key?<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//定义接口</span><br><span class="line">interface Person &#123;</span><br><span class="line">    name:string;</span><br><span class="line">    age？: number;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//这时仍然不允许添加未定义的属性：</span><br><span class="line">let tom: Person = &#123;</span><br><span class="line">    name: &apos;Tom&apos;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<h3 id="任意属性"><a href="#任意属性" class="headerlink" title="任意属性"></a>任意属性</h3><p>1.使用 [propName: string] 定义了任意属性取 string 类型的值。<br>2.一旦定义了任意属性，那么确定属性和可选属性的类型都必须是它的类型的子集，负责报错。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">interface Person &#123;</span><br><span class="line">    name: string;</span><br><span class="line">    age?: number;</span><br><span class="line">    [propName: string]: any;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let tom: Person = &#123;</span><br><span class="line">    name: &apos;Tom&apos;,</span><br><span class="line">    gender: &apos;male&apos;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//报错</span><br><span class="line">interface Person &#123;</span><br><span class="line">    name: string;</span><br><span class="line">    age?: number;</span><br><span class="line">    [propName: string]: string;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let tom: Person = &#123;</span><br><span class="line">    name: &apos;Tom&apos;,</span><br><span class="line">    age: 25,</span><br><span class="line">    gender: &apos;male&apos;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>因为可选属性age的值是number,number 不是 string 的子属性，所以报错了。</p>
-<h3 id="可读属性"><a href="#可读属性" class="headerlink" title="可读属性"></a>可读属性</h3><p>1.readonly 定义只读属性：<br>2.注意，只读的约束存在于第一次给对象赋值的时候，而不是第一次给只读属性赋值的时候：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">//报错</span><br><span class="line">interface Person &#123;</span><br><span class="line">    readonly id: number;</span><br><span class="line">    name: string;</span><br><span class="line">    age?: number;</span><br><span class="line">    [propName: string]: any;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let tom: Person = &#123;</span><br><span class="line">    id: 89757,</span><br><span class="line">    name: &apos;Tom&apos;,</span><br><span class="line">    gender: &apos;male&apos;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">tom.id = 9527;</span><br></pre></td></tr></table></figure></p>
-<p>使用 readonly 定义的属性 id 初始化后，又被赋值了，所以报错了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">interface Person &#123;</span><br><span class="line">    readonly id: number;</span><br><span class="line">    name: string;</span><br><span class="line">    age?: number;</span><br><span class="line">    [propName: string]: any;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let tom: Person = &#123;</span><br><span class="line">    name: &apos;Tom&apos;,</span><br><span class="line">    gender: &apos;male&apos;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">tom.id = 89757;</span><br></pre></td></tr></table></figure>
-<p>报错如下：</p>
-<ol>
-<li>tom 进行赋值的时候，没有给 id 赋值。</li>
-<li>tom.id 赋值的时候，由于它是只读属性</li>
+        <h3 id="express使用"><a href="#express使用" class="headerlink" title="express使用"></a>express使用</h3><a id="more"></a>
+<h3 id="安装express"><a href="#安装express" class="headerlink" title="安装express"></a>安装express</h3><ol>
+<li>npm install express-generator -g</li>
+<li>express express-test</li>
+<li>npm install</li>
+<li>npm start</li>
 </ol>
-
+<h3 id="处理路由"><a href="#处理路由" class="headerlink" title="处理路由"></a>处理路由</h3><p>app.js引入并注册路由，根路由和子路由进行拼接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var express = require(&apos;express&apos;);</span><br><span class="line">var router = express.Router();</span><br><span class="line"></span><br><span class="line">router.get(&apos;/list&apos;, function(req, res, next) &#123;</span><br><span class="line">  //res.json直接返回json，还可以设置头部是json</span><br><span class="line">  res.json(&#123;</span><br><span class="line">    errno: 0,</span><br><span class="line">    data: [1,2,3]</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);</span><br><span class="line">module.exports = router;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var express = require(&apos;express&apos;);</span><br><span class="line">var router = express.Router();</span><br><span class="line"></span><br><span class="line">router.post(&apos;/login&apos;, function(req, res, next) &#123;</span><br><span class="line">  const &#123; username,password &#125; = req.body</span><br><span class="line">  res.json(&#123;</span><br><span class="line">    errno: 0,</span><br><span class="line">    data: &#123;</span><br><span class="line">      username,</span><br><span class="line">      password</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">module.exports = router;</span><br></pre></td></tr></table></figure>
+<h3 id="session和redis"><a href="#session和redis" class="headerlink" title="session和redis"></a>session和redis</h3><ol>
+<li>配置redis</li>
+<li>connect-redis将session相关信息持久化</li>
+<li>配置session</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">const expressSession = require(&apos;express-session&apos;);</span><br><span class="line">const RedisStore = require(&apos;connect-redis&apos;)(expressSession)</span><br><span class="line"></span><br><span class="line">const redisClient = require(&apos;./db/redis&apos;)</span><br><span class="line">const sessionStore = new RedisStore(&#123;</span><br><span class="line">  client: redisClient</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.use(expressSession(&#123;</span><br><span class="line">  name: &apos;session-name&apos;, // 这里是cookie的name，默认是connect.sid</span><br><span class="line">  secret: &apos;my_session_secret&apos;, // 建议使用 128 个字符的随机字符串</span><br><span class="line">  store: sessionStore,</span><br><span class="line">  cookie: &#123;</span><br><span class="line">    path: &apos;/&apos;, //默认配置，根目录，前端每个路由都可以用到</span><br><span class="line">    resave: true,</span><br><span class="line">    saveUninitialized: false,</span><br><span class="line">    httpOnly: true, //默认配置,前端无法修改cookie</span><br><span class="line">    maxAge: 24*60*60*1000 //传入时间段，24小时失效</span><br><span class="line">  &#125;</span><br><span class="line">&#125;))</span><br></pre></td></tr></table></figure>
+<h3 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h3><ol>
+<li>中间件(middleware)是一个函数,他可以访问请求对象（request object(req)）,响应对象（response object(res)）和web应用中处于请求-响应循环</li>
+<li>app.use()就是通常所说的使用中间件</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function middleware(req,res,next)&#123;</span><br><span class="line">  // 做该干的事</span><br><span class="line"></span><br><span class="line">  // 做完后调用下一个函数</span><br><span class="line">  next();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>next()表示函数数组中的下一个函数</p>
+<h3 id="中间件原理"><a href="#中间件原理" class="headerlink" title="中间件原理"></a>中间件原理</h3><ol>
+<li>创建个实例，app.use用来注册中间件，先收集起来</li>
+<li>遇到http请求，根据path和method判断触发哪些</li>
+<li>实现next机制，即上一个通过next触发下一个</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br></pre></td><td class="code"><pre><span class="line">link-express.js</span><br><span class="line"></span><br><span class="line">const http = require(&apos;http&apos;)</span><br><span class="line">const slice = Array.prototype.slice</span><br><span class="line"></span><br><span class="line">/**  </span><br><span class="line"> * 定义LikeExpress的class,存放中间件的变量</span><br><span class="line"> * use，get，post都是中间件函数，统一放在register()处理，结果返回分别存入不同的数组</span><br><span class="line"> * register()判断第一个参数，如果是字符串，说明是一个路由。不是字符串则为根路由。把path、stack放在info中，stack是一个数组</span><br><span class="line"> * listen()创建server对象去监听，增加一个callback函数</span><br><span class="line"> * callback函数返回一个回调函数，定义res.json函数设置类型，返回JSON字符串</span><br><span class="line"> * 获取url,method。通过match函数去匹配中间件列表</span><br><span class="line"> * match函数通过routes.all和method把可用的中间件找出来，放在stack中</span><br><span class="line"> * 处理next机制</span><br><span class="line"> * </span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">class LikeExpress &#123;</span><br><span class="line">  constructor() &#123;</span><br><span class="line">    //存放中间件列表</span><br><span class="line">    this.routes = &#123;</span><br><span class="line">      all: [], //存放app.use(...)的中间件</span><br><span class="line">      get: [],</span><br><span class="line">      post: []</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  register(path) &#123;</span><br><span class="line">    const info = &#123;&#125;</span><br><span class="line">    </span><br><span class="line">    /**</span><br><span class="line">     * 传人的第一个参数可能是路由或一个中间件</span><br><span class="line">     * 如果是路由，后面则有多个中间件</span><br><span class="line">     * 如果是中间件,则第一个参数默认为根路径 </span><br><span class="line">     */ </span><br><span class="line">    if (typeof path === &apos;string&apos;) &#123;</span><br><span class="line">      info.path = path</span><br><span class="line">      //从第二个参数开始，转换为数组，存入stack</span><br><span class="line">      info.stack = slice.call(arguments,1)</span><br><span class="line">    &#125;else &#123;</span><br><span class="line">      info.path = &apos;/&apos;</span><br><span class="line">      //从第一个参数开始，转换为数组，存入stack</span><br><span class="line">      info.stack = slice.call(arguments,0)</span><br><span class="line">    &#125;</span><br><span class="line">    return info</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  //定义函数，表层输出的方法</span><br><span class="line">  use() &#123;</span><br><span class="line">    //通过apply把当前函数的参数传入register(),并执行register()，返回info</span><br><span class="line">    const info = this.register.apply(this,arguments)</span><br><span class="line">    this.routes.all.push(info)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  get() &#123;</span><br><span class="line">    const info = this.register.apply(this,arguments)</span><br><span class="line">    this.routes.get.push(info)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  post() &#123;</span><br><span class="line">    const info = this.register.apply(this,arguments)</span><br><span class="line">    this.routes.post.push(info)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  match(method,url) &#123;</span><br><span class="line">    let stack = []</span><br><span class="line">    if (url === &apos;/favicon.ico&apos;) &#123;</span><br><span class="line">      return stack</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //获取routes</span><br><span class="line">    let curRoutes = []</span><br><span class="line">    curRoutes = curRoutes.concat(this.routes.all)</span><br><span class="line">    curRoutes = curRoutes.concat(this.routes[method])</span><br><span class="line"></span><br><span class="line">    curRoutes.forEach(routeInfo =&gt; &#123;</span><br><span class="line">      if (url.indexOf(routeInfo.path === 0)) &#123;</span><br><span class="line">        stack = stack.concat(routeInfo.stack)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    return stack</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  //核心的next机制</span><br><span class="line">  handle(req,res,stack) &#123;</span><br><span class="line">    const next = () =&gt; &#123;</span><br><span class="line">      //拿到第一个匹配的中间件</span><br><span class="line">      const middleware = stack.shift()</span><br><span class="line">      if (middleware) &#123;</span><br><span class="line">        //执行中间件函数</span><br><span class="line">        middleware(req,res,next)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  callback() &#123;</span><br><span class="line">    return (req,res) =&gt; &#123;</span><br><span class="line">      res.json = (data) =&gt; &#123;</span><br><span class="line">        res.setHeader(&apos;Content-type&apos;,&apos;application/json&apos;)</span><br><span class="line">        res.end(JSON.stringify(data))</span><br><span class="line">      &#125;</span><br><span class="line">      const url = req.url</span><br><span class="line">      const method = req.method.toLowerCase()</span><br><span class="line"></span><br><span class="line">      const resultList = this.match(method,url)</span><br><span class="line">      this.handle(req,res,resultList)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  listen(...args) &#123;</span><br><span class="line">    const server = http.createServer(this.callback())</span><br><span class="line">    server.listen(...args)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 输出工厂函数</span><br><span class="line"> */</span><br><span class="line">module.exports = () =&gt; &#123;</span><br><span class="line">  return new LikeExpress()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="日志-morgan"><a href="#日志-morgan" class="headerlink" title="日志-morgan"></a>日志-morgan</h3><p>新建logs文件夹下的access.log<br>判断不同的环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">const ENV = process.env.NODE_ENV</span><br><span class="line">if (ENV !== &apos;production&apos;) &#123;</span><br><span class="line">  app.use(logger(&apos;dev&apos;))</span><br><span class="line">&#125; else &#123;</span><br><span class="line">  //线上环境</span><br><span class="line">  const logFileName = path.join(__dirname,&apos;logs&apos;,&apos;access.log&apos;)</span><br><span class="line">  const writeStream = fs.createWriteStream(logFileName,&#123;</span><br><span class="line">    flags: &apos;a&apos;</span><br><span class="line">  &#125;)</span><br><span class="line">  app.use(logger(&apos;combined&apos;,&#123;</span><br><span class="line">    stream: writeStream</span><br><span class="line">  &#125;))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -408,7 +421,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/TypeScript/" rel="tag"># TypeScript</a>
+            <a href="/tags/Node-js/" rel="tag"># Node.js</a>
           
         </div>
       
@@ -421,8 +434,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/09/3-ts-any/" rel="next" title="任意值Any">
-                <i class="fa fa-chevron-left"></i> 任意值Any
+              <a href="/2019/06/12/Node-tool/" rel="next" title="Node.js的数据存储">
+                <i class="fa fa-chevron-left"></i> Node.js的数据存储
               </a>
             
           </div>
@@ -430,10 +443,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/30/1-JS-zuoyongyu/" rel="prev" title="作用域">
-                作用域 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -569,7 +578,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#对象的类型-interfacer"><span class="nav-number">1.</span> <span class="nav-text">对象的类型(interfacer)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是接口"><span class="nav-number">2.</span> <span class="nav-text">什么是接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可选属性"><span class="nav-number">3.</span> <span class="nav-text">可选属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#任意属性"><span class="nav-number">4.</span> <span class="nav-text">任意属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可读属性"><span class="nav-number">5.</span> <span class="nav-text">可读属性</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#express使用"><span class="nav-number">1.</span> <span class="nav-text">express使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装express"><span class="nav-number">2.</span> <span class="nav-text">安装express</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#处理路由"><span class="nav-number">3.</span> <span class="nav-text">处理路由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#session和redis"><span class="nav-number">4.</span> <span class="nav-text">session和redis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中间件"><span class="nav-number">5.</span> <span class="nav-text">中间件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中间件原理"><span class="nav-number">6.</span> <span class="nav-text">中间件原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#日志-morgan"><span class="nav-number">7.</span> <span class="nav-text">日志-morgan</span></a></li></ol></div>
             
 
           </div>
