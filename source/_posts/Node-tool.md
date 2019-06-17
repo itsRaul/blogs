@@ -123,6 +123,7 @@ module.exports = {
 
 ### nginx反向代理
 > 用到nginx做代理，让前后端同域
+![image](/images/nginx.png)
 #### 介绍
 1. 高性能的web服务器，开源免费
 2. 一般用于做静态服务，负载均衡
