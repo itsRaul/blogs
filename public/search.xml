@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[数组类]]></title>
+    <url>%2F2019%2F07%2F12%2Fsunfa-array%2F</url>
+    <content type="text"><![CDATA[数组类 电话号码的字母组合 思路： “23”分别对应’abc’,’def’,把”23”分隔split成数组对应字母，遍历，splice替换，判断是否还有组合，递归 “234” 的时候，先算出23的组合，23的新组合和4进行组合，两两计算 种花问题 思路： 边界处理，判断1左右两边是否是0，如：0，1，0 定义计数器0 遍历，判断是否是0为空地 再判断第一个同时第二个是否为0空地，是的max++,跳到下一个进行左右判断]]></content>
+      <categories>
+        <category>js数据结构与算法</category>
+      </categories>
+      <tags>
+        <tag>js数据结构与算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[反转单词]]></title>
     <url>%2F2019%2F07%2F11%2Fsuanfa-string%2F</url>
     <content type="text"><![CDATA[反转单词 思路： 字符串按空格进行分隔，保存数组，数组的元素的先后顺序就是单词的顺序 对数组进行遍历，然后每个元素进行反转 12345function reverseString(str) &#123; return str.split(&apos; &apos;).map(item =&gt; &#123; return item.split(&apos;&apos;).reverse().join(&apos;&apos;) &#125;).join(&apos; &apos;)&#125;]]></content>
